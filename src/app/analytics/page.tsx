@@ -10,6 +10,8 @@ import type { Invoice } from "@stellar-split/sdk";
 import ChartBuilder, { type ChartBuilderDataPoint } from "@/components/analytics/ChartBuilder";
 import AnalyticsPanel from "@/components/subscriptions/AnalyticsPanel";
 import { loadSubscriptions, type Subscription } from "@/lib/subscriptions";
+import AttributionAnalyticsPanel from "@/components/analytics/AttributionAnalyticsPanel";
+import BenchmarkAnalyticsPanel from "@/components/analytics/BenchmarkAnalyticsPanel";
 
 const STROOPS = 10_000_000;
 
@@ -445,6 +447,12 @@ export default function AnalyticsPage() {
           </div>
         ) : (
           <>
+        <AttributionAnalyticsPanel />
+        <BenchmarkAnalyticsPanel
+          invoiceCount={stats.total}
+          successfulInvoices={filtered.filter((invoice) => invoice.status === "Released").length}
+          totalRaised={stats.totalRaised}
+        />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <KpiCard
             label="Total Raised"
